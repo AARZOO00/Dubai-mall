@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Private Shopping Suites — The Dubai Mall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-light:#E8D08A;--gold-dark:#8B6914;
+  --obsidian:#0A0A0B;--deep:#0D0D10;--surface:#13131A;--surface2:#1A1A22;
+  --text:#F0EDE8;--text-dim:#8A8480;--text-muted:#4A4550;
+  --border:rgba(201,168,76,.1);--border-h:rgba(201,168,76,.35);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--obsidian);color:var(--text);overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--deep)}::-webkit-scrollbar-thumb{background:var(--gold-dark)}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(201,168,76,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 52px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s}
+nav.sc{background:rgba(10,10,11,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;letter-spacing:5px;color:var(--gold);text-transform:uppercase;text-decoration:none}
+.nav-logo span{color:var(--text)}
+.nav-back{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;padding:10px 20px;border:1px solid var(--border);transition:all .3s;cursor:none}
+.nav-back:hover{color:var(--gold);border-color:var(--gold)}
+
+/* HERO */
+.hero{height:100vh;min-height:680px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.25);animation:heroZoom 20s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.05)}}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.04) 0%,transparent 60%),linear-gradient(to bottom,rgba(10,10,11,.5) 0%,rgba(10,10,11,.2) 40%,rgba(10,10,11,.8) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:860px;padding:0 32px}
+.hero-eyebrow{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease .3s forwards;display:flex;align-items:center;justify-content:center;gap:16px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:1px;background:var(--gold)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,96px);font-weight:300;line-height:.95;margin-bottom:28px;opacity:0;animation:fadeUp 1.2s ease .5s forwards}
+.hero-title em{font-style:italic;color:var(--gold-light);display:block}
+.hero-sub{font-size:16px;color:rgba(240,237,232,.65);line-height:1.9;max-width:560px;margin:0 auto 44px;opacity:0;animation:fadeUp 1s ease .8s forwards;font-weight:300}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease 1s forwards}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s ease 2s forwards}
+.scroll-line{width:1px;height:52px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2s ease-in-out infinite}
+
+/* BTN */
+.btn-gold{display:inline-block;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:15px 34px;text-decoration:none;border:2px solid var(--gold);transition:all .3s;cursor:none}
+.btn-gold:hover{background:transparent;color:var(--gold)}
+.btn-outline{display:inline-block;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text);padding:15px 34px;text-decoration:none;border:2px solid rgba(240,237,232,.2);transition:all .3s;cursor:none}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* SECTION */
+section{padding:110px 0;position:relative}
+.container{max-width:1360px;margin:0 auto;padding:0 56px}
+.eyebrow{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,64px);font-weight:300;line-height:1.05;margin-bottom:22px}
+.sec-title em{font-style:italic;color:var(--gold-light)}
+.sec-body{font-size:15px;font-weight:300;color:var(--text-dim);line-height:1.95;max-width:520px}
+.gold-line{width:44px;height:1px;background:var(--gold);margin:18px 0 32px}
+
+/* INTRO SPLIT */
+.intro-split{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;margin-top:64px}
+.intro-img{position:relative;overflow:hidden;min-height:520px}
+.intro-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease;filter:brightness(.8)}
+.intro-split:hover .intro-img img{transform:scale(1.03)}
+.intro-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 50%,rgba(10,10,11,.6))}
+.intro-body{background:var(--surface);padding:64px 56px;display:flex;flex-direction:column;justify-content:center}
+.intro-quote{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;font-style:italic;color:var(--gold-light);border-left:2px solid var(--gold);padding-left:24px;margin-bottom:32px;line-height:1.6}
+
+/* SUITES GRID */
+.suites-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px}
+.suite-card{position:relative;overflow:hidden;cursor:none;background:var(--surface)}
+.suite-img{aspect-ratio:3/4;overflow:hidden}
+.suite-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease;filter:brightness(.75)}
+.suite-card:hover .suite-img img{transform:scale(1.06);filter:brightness(.6)}
+.suite-info{padding:28px 24px}
+.suite-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:rgba(201,168,76,.15);line-height:1;margin-bottom:8px}
+.suite-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:6px}
+.suite-subtitle{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.suite-desc{font-size:13px;color:var(--text-dim);line-height:1.75}
+.suite-tag{display:inline-block;margin-top:14px;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);padding:5px 12px;border:1px solid var(--border);transition:all .3s}
+.suite-card:hover .suite-tag{border-color:var(--gold);color:var(--gold)}
+/* hover reveal */
+.suite-hover{position:absolute;top:0;left:0;right:0;height:60%;background:linear-gradient(to bottom,transparent,rgba(10,10,11,.85));display:flex;align-items:flex-end;padding:24px;opacity:0;transition:opacity .4s}
+.suite-card:hover .suite-hover{opacity:1}
+.suite-hover-line{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+
+/* SERVICES STRIP */
+.services-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:64px;border:1px solid var(--border)}
+.svc-cell{background:var(--deep);padding:40px 28px;text-align:center;cursor:none;transition:background .3s;position:relative;overflow:hidden}
+.svc-cell:hover{background:var(--surface)}
+.svc-cell::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .5s}
+.svc-cell:hover::after{width:100%}
+.svc-icon{font-size:36px;margin-bottom:18px;display:block}
+.svc-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:10px}
+.svc-desc{font-size:13px;color:var(--text-dim);line-height:1.7}
+
+/* FEATURES MOSAIC */
+.features-mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:64px;background:var(--border)}
+.feat-tile{position:relative;overflow:hidden;cursor:none}
+.feat-tile.tall{grid-row:1/3}
+.feat-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease;filter:brightness(.55);min-height:260px}
+.feat-tile:hover img{transform:scale(1.04);filter:brightness(.4)}
+.feat-tile-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:32px;background:linear-gradient(to top,rgba(10,10,11,.88) 0%,transparent 55%)}
+.feat-tile-tag{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.feat-tile-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:6px}
+.feat-tile-desc{font-size:13px;color:rgba(240,237,232,.65);line-height:1.65;max-width:340px}
+
+/* PROCESS */
+.process-steps{display:flex;flex-direction:column;gap:0;margin-top:64px;border:1px solid var(--border)}
+.process-step{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:32px;padding:32px 40px;border-bottom:1px solid var(--border);cursor:none;transition:background .3s;position:relative;overflow:hidden}
+.process-step:last-child{border-bottom:none}
+.process-step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(to right,rgba(201,168,76,.06),transparent);transition:width .4s}
+.process-step:hover{background:var(--surface2)}
+.process-step:hover::before{width:100%}
+.ps-num{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:rgba(201,168,76,.2);line-height:1}
+.ps-body{}
+.ps-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:6px}
+.ps-desc{font-size:13.5px;color:var(--text-dim);line-height:1.7}
+.ps-tag{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);padding:7px 16px;border:1px solid rgba(201,168,76,.25);white-space:nowrap}
+
+/* DATA VIZ — concentric rings */
+.concentric-wrap{display:flex;align-items:center;gap:64px;margin-top:64px;flex-wrap:wrap}
+.concentric-svg-wrap{position:relative;width:240px;height:240px;flex-shrink:0;margin:0 auto}
+.c-svg{position:absolute;inset:0}
+.c-ring{fill:none;stroke-linecap:round;stroke-dasharray:var(--circ);stroke-dashoffset:var(--circ);transition:stroke-dashoffset 1.8s cubic-bezier(.23,1,.32,1)}
+.c-bg{fill:none;stroke:rgba(201,168,76,.07);stroke-width:12}
+.concentric-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cc-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold);line-height:1}
+.cc-lbl{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+.concentric-legend{flex:1;min-width:280px}
+.cl-item{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);cursor:none;transition:background .3s}
+.cl-item:last-child{border-bottom:none}
+.cl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.cl-label{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;flex:1}
+.cl-pct{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold)}
+.cl-sub{font-size:12px;color:var(--text-muted)}
+
+/* MEMBERSHIP TIERS */
+.membership-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px}
+.mem-card{padding:44px 36px;border:1px solid var(--border);background:var(--surface);position:relative;overflow:hidden;cursor:none;transition:transform .35s,border-color .35s}
+.mem-card:hover{transform:translateY(-6px);border-color:var(--border-h)}
+.mem-card.prestige{border-color:rgba(201,168,76,.4);background:linear-gradient(160deg,rgba(201,168,76,.1) 0%,var(--surface) 60%)}
+.mem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.mem-card:hover::before,.mem-card.prestige::before{opacity:1}
+.mem-tier{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(201,168,76,.12)}
+.mem-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;margin-bottom:8px}
+.mem-tagline{font-size:13px;color:var(--text-muted);margin-bottom:24px;font-style:italic}
+.mem-divider{width:32px;height:1px;background:var(--gold);margin-bottom:24px}
+.mem-perks{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:32px}
+.mem-perks li{font-size:13.5px;color:var(--text-dim);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.mem-perks li::before{content:'✦';color:var(--gold);font-size:9px;flex-shrink:0;margin-top:3px}
+
+/* TESTIMONIALS CAROUSEL */
+.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:64px}
+.test-card{padding:44px 40px;background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden;cursor:none;transition:border-color .3s}
+.test-card:hover{border-color:var(--border-h)}
+.test-card::before{content:'❝';position:absolute;top:16px;right:24px;font-size:80px;color:rgba(201,168,76,.06);font-family:serif;line-height:1}
+.tc-quote{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;line-height:1.6;margin-bottom:24px;color:var(--text)}
+.tc-author{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.tc-role{font-size:12px;color:var(--text-muted);margin-top:3px}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.2);padding:80px;text-align:center;margin-top:80px}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,60px);font-weight:300;margin-bottom:20px}
+.cta-title em{font-style:italic;color:var(--gold-light)}
+.cta-sub{font-size:15px;color:var(--text-dim);line-height:1.85;max-width:500px;margin:0 auto 44px}
+
+/* FOOTER */
+footer{background:var(--obsidian);border-top:1px solid var(--border);padding:40px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;letter-spacing:5px;color:var(--gold);text-transform:uppercase}
+.ft-links{display:flex;gap:28px;list-style:none}
+.ft-links a{font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .3s}
+.ft-links a:hover{color:var(--gold)}
+.ft-copy{font-size:11px;color:var(--text-muted)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.r.on{opacity:1;transform:none}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}.r.d4{transition-delay:.4s}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+@media(max-width:1100px){.suites-grid{grid-template-columns:1fr 1fr}.services-strip{grid-template-columns:1fr 1fr}.membership-grid{grid-template-columns:1fr}.test-grid{grid-template-columns:1fr}.intro-split{grid-template-columns:1fr}.intro-img{min-height:320px}.concentric-wrap{flex-direction:column}.container{padding:0 28px}nav{padding:18px 24px}}
+@media(max-width:640px){section{padding:72px 0}.suites-grid{grid-template-columns:1fr}.services-strip{grid-template-columns:1fr}.features-mosaic{grid-template-columns:1fr}.process-step{grid-template-columns:48px 1fr;gap:16px}.ps-tag{display:none}.cta-section{padding:48px 24px}footer{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">The <span>Dubai</span> Mall</a>
+  <a class="nav-back" href="index.html#luxury">← Back to Overview</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=2000&q=80&fit=crop" alt="Private Suites"/></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">VIP Experience · By Appointment</div>
+    <h1 class="hero-title">Private Shopping<br/><em>Suites</em></h1>
+    <p class="hero-sub">Exclusive private environments for the world's most discerning clients. Absolute discretion. Personalised service. The world's finest brands, presented for you alone.</p>
+    <div class="hero-btns">
+      <a href="#suites" class="btn-gold">Explore the Suites</a>
+      <a href="#membership" class="btn-outline">VIP Membership</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span style="font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)">Discover</span></div>
+</div>
+
+<!-- INTRO SPLIT -->
+<section style="background:var(--deep)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end">
+      <div><p class="eyebrow r">The Concept</p><h2 class="sec-title r d1">Shopping Reimagined.<br/>Privacy <em>Absolute</em>.</h2></div>
+      <p class="sec-body r d2">Our Private Shopping Suites exist outside the ordinary retail experience. Accessed by invitation or appointment, they offer royalty, celebrities, and ultra-high-net-worth clients a sanctuary of discretion within the world's most visited destination.</p>
+    </div>
+    <div class="intro-split r">
+      <div class="intro-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80&fit=crop" alt="Private Suite Interior" loading="lazy"/><div class="intro-img-overlay"></div></div>
+      <div class="intro-body">
+        <div class="intro-quote">"A space where the world's most exquisite objects are presented to those who truly appreciate them — without interruption, without compromise."</div>
+        <p style="font-size:14.5px;color:var(--text-dim);line-height:1.9;margin-bottom:28px">Every suite is a sovereign environment. Your dedicated butler coordinates with brand houses in advance of your arrival. Collections are pre-curated to your taste profile. The experience is shaped entirely around you — not the other way around.</p>
+        <div style="display:flex;gap:40px;flex-wrap:wrap">
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold);line-height:1"><span class="ctr" data-t="12">0</span></div><div style="font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Private Suites Available</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold);line-height:1">24/7</div><div style="font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Butler Availability</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--gold);line-height:1"><span class="ctr" data-t="130">0</span>+</div><div style="font-family:'Montserrat',sans-serif;font-size:8.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px">Brands on Call</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SUITES -->
+<section id="suites" style="background:var(--obsidian)">
+  <div class="container">
+    <p class="eyebrow r">Our Spaces</p>
+    <h2 class="sec-title r d1">The Suites.<br/>Each One <em>Singular</em>.</h2>
+    <div class="suites-grid">
+      <div class="suite-card r d1">
+        <div class="suite-img"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=700&q=80&fit=crop" alt="The Grand Suite" loading="lazy"/></div>
+        <div class="suite-hover"><span class="suite-hover-line">Available by appointment →</span></div>
+        <div class="suite-info">
+          <div class="suite-num">01</div>
+          <div class="suite-name">The Grand Suite</div>
+          <div class="suite-subtitle">Flagship Private Experience</div>
+          <p class="suite-desc">4,000 sq ft of curated luxury. Marble reception, full runway catwalk, private fitting gallery, and dedicated champagne lounge. The ultimate setting for multi-brand presentations.</p>
+          <span class="suite-tag">Up to 12 Guests · Full AV</span>
+        </div>
+      </div>
+      <div class="suite-card r d2">
+        <div class="suite-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80&fit=crop" alt="The Atelier Suite" loading="lazy"/></div>
+        <div class="suite-hover"><span class="suite-hover-line">Available by appointment →</span></div>
+        <div class="suite-info">
+          <div class="suite-num">02</div>
+          <div class="suite-name">The Atelier Suite</div>
+          <div class="suite-subtitle">Haute Couture Focus</div>
+          <p class="suite-desc">Designed in collaboration with three Paris maisons. Dedicated for couture and bespoke appointments. Seamstress on call. Natural north light. Museum-quality display cases.</p>
+          <span class="suite-tag">Intimate · 1-4 Guests</span>
+        </div>
+      </div>
+      <div class="suite-card r d3">
+        <div class="suite-img"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80&fit=crop" alt="The Diamond Suite" loading="lazy"/></div>
+        <div class="suite-hover"><span class="suite-hover-line">Available by appointment →</span></div>
+        <div class="suite-info">
+          <div class="suite-num">03</div>
+          <div class="suite-name">The Diamond Suite</div>
+          <div class="suite-subtitle">Fine Jewellery & Watches</div>
+          <p class="suite-desc">Vault-grade security. Specialist lighting engineered for gemstones. Direct connections to Cartier, Rolex, Van Cleef, and Chopard private collections. Insurance arranged on request.</p>
+          <span class="suite-tag">Security Level AA · Invite Only</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES STRIP -->
+<section style="background:var(--deep)">
+  <div class="container">
+    <p class="eyebrow r">Suite Services</p>
+    <h2 class="sec-title r d1">Every Service.<br/><em>Anticipated</em>.</h2>
+    <div class="services-strip r d1">
+      <div class="svc-cell"><span class="svc-icon">👑</span><div class="svc-title">Personal Butler</div><p class="svc-desc">Dedicated concierge with deep knowledge of every brand, collection, and designer in the building.</p></div>
+      <div class="svc-cell"><span class="svc-icon">🚁</span><div class="svc-title">VIP Arrival</div><p class="svc-desc">Private helipad, car bays, and escort from arrival point to suite — zero public contact required.</p></div>
+      <div class="svc-cell"><span class="svc-icon">🍾</span><div class="svc-title">Hospitality</div><p class="svc-desc">Michelin-trained in-suite dining, curated wine cellar, afternoon tea, and custom beverage menus.</p></div>
+      <div class="svc-cell"><span class="svc-icon">📦</span><div class="svc-title">Global Delivery</div><p class="svc-desc">Same-day international courier for all purchases. Custom packaging and gifting services available.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES MOSAIC -->
+<section style="background:var(--obsidian)">
+  <div class="container">
+    <p class="eyebrow r">The Environment</p>
+    <h2 class="sec-title r d1">Built for the<br/><em>World's Best</em>.</h2>
+    <div class="features-mosaic r d1">
+      <div class="feat-tile tall">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80&fit=crop" alt="Interior" loading="lazy"/>
+        <div class="feat-tile-overlay">
+          <div class="feat-tile-tag">Architecture</div>
+          <div class="feat-tile-title">Italian Marble & Bronze</div>
+          <p class="feat-tile-desc">Every surface sourced from the same suppliers as Chanel Paris and Hermès Madison Avenue.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="feat-tile">
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=700&q=80&fit=crop" alt="Smart Tech" loading="lazy"/>
+          <div class="feat-tile-overlay">
+            <div class="feat-tile-tag">Technology</div>
+            <div class="feat-tile-title">Smart Suite System</div>
+            <p class="feat-tile-desc">AI-controlled lighting, climate, and AV. Digital wardrobe mirror with real-time styling AI.</p>
+          </div>
+        </div>
+        <div class="feat-tile">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80&fit=crop" alt="Security" loading="lazy"/>
+          <div class="feat-tile-overlay">
+            <div class="feat-tile-tag">Security & Privacy</div>
+            <div class="feat-tile-title">Absolute Discretion</div>
+            <p class="feat-tile-desc">Biometric entry, signal-blocked rooms, and NDA-standard privacy protocols for every visit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA VIZ — Concentric rings: client profile -->
+<section style="background:var(--deep)">
+  <div class="container">
+    <p class="eyebrow r">Client Profile</p>
+    <h2 class="sec-title r d1">Who Visits<br/>Our <em>Suites</em>.</h2>
+    <div class="concentric-wrap r d1" id="conc-wrap">
+      <div class="concentric-svg-wrap">
+        <svg class="c-svg" viewBox="0 0 240 240" width="240" height="240">
+          <!-- outer ring: royalty/UHNW -->
+          <circle class="c-bg" cx="120" cy="120" r="108"/>
+          <circle class="c-ring" id="cr1" cx="120" cy="120" r="108" stroke="var(--gold)" stroke-width="12" style="--circ:679"/>
+          <!-- mid ring -->
+          <circle class="c-bg" cx="120" cy="120" r="88"/>
+          <circle class="c-ring" id="cr2" cx="120" cy="120" r="88" stroke="rgba(201,168,76,.5)" stroke-width="12" style="--circ:553"/>
+          <!-- inner ring -->
+          <circle class="c-bg" cx="120" cy="120" r="68"/>
+          <circle class="c-ring" id="cr3" cx="120" cy="120" r="68" stroke="rgba(201,168,76,.25)" stroke-width="12" style="--circ:427"/>
+        </svg>
+        <div class="concentric-center">
+          <div class="cc-num" id="cc-num">0</div>
+          <div class="cc-lbl">Countries<br/>Represented</div>
+        </div>
+      </div>
+      <div class="concentric-legend">
+        <div class="cl-item"><div class="cl-dot" style="background:var(--gold)"></div><div><div class="cl-label">Royalty & Heads of State</div><div class="cl-sub">Private diplomatic protocols. Special access routes available.</div></div><div class="cl-pct">38%</div></div>
+        <div class="cl-item"><div class="cl-dot" style="background:rgba(201,168,76,.5)"></div><div><div class="cl-label">UHNW Individuals</div><div class="cl-sub">Net worth $100M+. Dedicated relationship manager assigned.</div></div><div class="cl-pct">35%</div></div>
+        <div class="cl-item"><div class="cl-dot" style="background:rgba(201,168,76,.25)"></div><div><div class="cl-label">Celebrities & Executives</div><div class="cl-sub">Media, entertainment, sport, and corporate leaders globally.</div></div><div class="cl-pct">27%</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING PROCESS -->
+<section style="background:var(--obsidian)">
+  <div class="container">
+    <p class="eyebrow r">The Process</p>
+    <h2 class="sec-title r d1">From Request<br/>to <em>Experience</em>.</h2>
+    <div class="process-steps r d1">
+      <div class="process-step"><div class="ps-num">01</div><div class="ps-body"><div class="ps-title">Private Request</div><p class="ps-desc">Contact our VIP desk directly — by phone, dedicated app, or through your personal concierge. All inquiries are handled under strict confidentiality.</p></div><div class="ps-tag">Within 1 Hour Response</div></div>
+      <div class="process-step"><div class="ps-num">02</div><div class="ps-body"><div class="ps-title">Preference Briefing</div><p class="ps-desc">Your style curator discusses upcoming needs — brands of interest, occasion, size profiles, and any specific items you've been seeking globally.</p></div><div class="ps-tag">Confidential Profile</div></div>
+      <div class="process-step"><div class="ps-num">03</div><div class="ps-body"><div class="ps-title">Suite Curation</div><p class="ps-desc">Selected items are sourced from brand houses and arranged within your chosen suite. New season pieces, archived rarities, and bespoke commissions coordinated.</p></div><div class="ps-tag">24–48 Hours Prep</div></div>
+      <div class="process-step"><div class="ps-num">04</div><div class="ps-body"><div class="ps-title">Private Arrival</div><p class="ps-desc">You arrive at a dedicated entrance, bypassing all public areas. Butler escort to your suite. Refreshments prepared to preference. Experience begins.</p></div><div class="ps-tag">Zero Public Contact</div></div>
+      <div class="process-step"><div class="ps-num">05</div><div class="ps-body"><div class="ps-title">Aftercare & Delivery</div><p class="ps-desc">All purchases packaged, insured, and dispatched globally. Alterations arranged. Your curator follows up with new arrivals that match your profile.</p></div><div class="ps-tag">Global Same-Day Courier</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP -->
+<section id="membership" style="background:var(--deep)">
+  <div class="container">
+    <p class="eyebrow r">VIP Membership</p>
+    <h2 class="sec-title r d1">Access Without<br/><em>Limits</em>.</h2>
+    <div class="membership-grid">
+      <div class="mem-card r d1">
+        <div class="mem-tier">Tier I</div>
+        <div class="mem-name">Preferred</div>
+        <div class="mem-tagline">For those who appreciate the finer things</div>
+        <div class="mem-divider"></div>
+        <ul class="mem-perks">
+          <li>Suite booking priority (48h advance)</li>
+          <li>Dedicated style curator assigned</li>
+          <li>Early access to seasonal collections</li>
+          <li>In-suite dining & beverage service</li>
+          <li>Complimentary alterations & monogramming</li>
+          <li>Private parking (Level P1)</li>
+        </ul>
+        <a href="mailto:vip@thedubaimall.com" class="btn-outline" style="display:block;text-align:center">Apply for Membership</a>
+      </div>
+      <div class="mem-card prestige r d2">
+        <div class="mem-tier">⭐ Tier II — Most Exclusive</div>
+        <div class="mem-name">Prestige</div>
+        <div class="mem-tagline">For those who accept nothing less than the absolute best</div>
+        <div class="mem-divider"></div>
+        <ul class="mem-perks">
+          <li>24/7 suite access with zero notice required</li>
+          <li>Personal relationship manager on speed-dial</li>
+          <li>Private helicopter arrival coordination</li>
+          <li>Bespoke global sourcing — any brand, any piece</li>
+          <li>Advance access to auction houses & private sales</li>
+          <li>Annual wardrobe curation service</li>
+          <li>Complimentary international courier on all orders</li>
+          <li>Invitation to exclusive brand events globally</li>
+        </ul>
+        <a href="mailto:vip@thedubaimall.com" class="btn-gold" style="display:block;text-align:center">Apply — By Invitation</a>
+      </div>
+      <div class="mem-card r d3">
+        <div class="mem-tier">Tier III</div>
+        <div class="mem-name">Signature</div>
+        <div class="mem-tagline">For distinguished clients with specific requirements</div>
+        <div class="mem-divider"></div>
+        <ul class="mem-perks">
+          <li>Suite booking 72h advance notice</li>
+          <li>Shared style curator (max 3 clients)</li>
+          <li>Access to standard suite formats</li>
+          <li>VIP parking allocation</li>
+          <li>In-suite refreshments</li>
+          <li>Brand liaison service on request</li>
+        </ul>
+        <a href="mailto:vip@thedubaimall.com" class="btn-outline" style="display:block;text-align:center">Apply for Membership</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:var(--obsidian)">
+  <div class="container">
+    <p class="eyebrow r">Client Voices</p>
+    <h2 class="sec-title r d1">What Our<br/>Clients <em>Say</em>.</h2>
+    <div class="test-grid">
+      <div class="test-card r d1">
+        <p class="tc-quote">"There is no other place on earth where I can have the Hermès spring-summer and the Chanel pre-fall presented to me simultaneously, in complete privacy, with a glass of Krug. The Dubai Mall suites are simply without equal."</p>
+        <div class="tc-author">H.H. — European Royalty</div>
+        <div class="tc-role">Prestige Member · 4 years</div>
+      </div>
+      <div class="test-card r d2">
+        <p class="tc-quote">"As someone who travels with a security team, finding a retail experience that accommodates my requirements without spectacle is nearly impossible. The Private Suites have solved that entirely. They are now my first call in any city."</p>
+        <div class="tc-author">M.A. — International Business Leader</div>
+        <div class="tc-role">Prestige Member · 2 years</div>
+      </div>
+      <div class="test-card r d3">
+        <p class="tc-quote">"My curator remembered I had mentioned a preference for Venetian glass buttons three visits ago. They had commissioned a bespoke Chanel piece incorporating them for my next appointment. That level of attention is why I'm a client for life."</p>
+        <div class="tc-author">S.K. — Entertainment Industry</div>
+        <div class="tc-role">Signature Member · 18 months</div>
+      </div>
+      <div class="test-card r d4">
+        <p class="tc-quote">"The Diamond Suite sourced a 1967 Patek Philippe that I had been seeking for eleven years. Through connections I have never been able to access. That is the difference this place makes."</p>
+        <div class="tc-author">C.L. — Private Collector</div>
+        <div class="tc-role">Preferred Member · 3 years</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--deep)">
+  <div class="container">
+    <div class="cta-section r">
+      <h2 class="cta-title">Begin Your<br/><em>Private</em> Experience.</h2>
+      <p class="cta-sub">To request a suite appointment or enquire about VIP membership, contact our private client team. All communications are held in the strictest confidence.</p>
+      <a href="mailto:vip@thedubaimall.com" class="btn-gold">Contact VIP Desk →</a>
+      <a href="index.html#contact" class="btn-outline" style="margin-left:16px">General Enquiries</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">The Dubai Mall</div>
+  <ul class="ft-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="finest-maisons.html">Fashion Avenue</a></li>
+    <li><a href="brand-partnerships.html">Partnerships</a></li>
+    <li><a href="luxury-shop.html">Shop</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="ft-copy">© 2025 Emaar Malls · Private Client Division</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button,.suite-card,.svc-cell,.mem-card,.test-card,.process-step,.feat-tile,.cl-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';ring.style.width='50px';ring.style.height='50px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px'});
+});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>60));
+const rObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');rObs.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.r').forEach(el=>rObs.observe(el));
+const cObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){let s=null;(function f(ts){if(!s)s=ts;const p=Math.min((ts-s)/1600,1),v=1-Math.pow(1-p,3);e.target.textContent=Math.floor(v*(+e.target.dataset.t)).toLocaleString();if(p<1)requestAnimationFrame(f);else e.target.textContent=(+e.target.dataset.t).toLocaleString();})(performance.now());cObs.unobserve(e.target);}}),{threshold:.3});
+document.querySelectorAll('.ctr').forEach(c=>cObs.observe(c));
+
+// CONCENTRIC RINGS
+const concObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  setTimeout(()=>{
+    const r1=document.getElementById('cr1'),r2=document.getElementById('cr2'),r3=document.getElementById('cr3'),ccn=document.getElementById('cc-num');
+    if(r1){
+      // r=108 → circ=679, animate 38% of ring
+      r1.style.strokeDashoffset=679*(1-.38*3.14/3.14);
+      r2.style.strokeDashoffset=553*(1-.35*3.14/3.14);
+      r3.style.strokeDashoffset=427*(1-.27*3.14/3.14);
+      // simplified: offset = circ - (pct * circ)
+      r1.style.strokeDashoffset=679-(0.65*679);
+      r2.style.strokeDashoffset=553-(0.55*553);
+      r3.style.strokeDashoffset=427-(0.40*427);
+      let v=0,id=setInterval(()=>{v+=2;if(v>=62){v=62;clearInterval(id);}ccn.textContent=v;},28);
+    }
+  },200);
+  concObs.unobserve(e.target);
+}),{threshold:.2});
+const cw=document.getElementById('conc-wrap');
+if(cw)concObs.observe(cw);
+</script>
+</body>
+</html>
