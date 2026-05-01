@@ -1,4 +1,5 @@
 # Dubai Mall Sales Deck — Production-Level Enhancement Summary
+🔗 Live Demo URL | 📂 GitHub Repo
 
 ## 🎯 Overview
 Your Dubai Mall sales deck has been transformed into a **high-end, production-level digital product** with cinematic design, sophisticated animations, and premium user experience. This document outlines all enhancements made.
