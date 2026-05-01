@@ -1,3 +1,4 @@
+
 # The Dubai Mall — Interactive Sales Deck
 
 A browser-based high-end sales experience built as a pitch deck for The Dubai Mall.
@@ -35,3 +36,6 @@ A browser-based high-end sales experience built as a pitch deck for The Dubai Ma
 - Add a live deployment URL for review.
 - Replace temporary hero media with owned or licensed Dubai Mall video assets.
 - Add a short write-up summarizing the design rationale and AE/AI asset usage if required for submission.
+=======
+# Dubai-mall
+
