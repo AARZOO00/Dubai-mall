@@ -1,5 +1,5 @@
 # Dubai Mall Sales Deck — Production-Level Enhancement Summary
-🔗 Live Demo URL | 📂 GitHub Repo
+[🔗 Live Demo URL](https://dubai-mall-beta.vercel.app) | [📂 GitHub Repo](https://github.com/AARZOO00/Dubai-mall)
 
 ## 🎯 Overview
 Your Dubai Mall sales deck has been transformed into a **high-end, production-level digital product** with cinematic design, sophisticated animations, and premium user experience. This document outlines all enhancements made.
